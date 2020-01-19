@@ -1,0 +1,8 @@
+
+<ul class="list-group list-group-flush">
+  <li class="list-group-item" *ngFor="let comment of comments">
+      <div class="name">{{comment.name}}</div>
+      <div class="email">{{comment.email}}</div>
+      <div class="body">{{ (comment.body | slice: 0:63) + ' ...' }}</div>
+  </li>
+</ul>

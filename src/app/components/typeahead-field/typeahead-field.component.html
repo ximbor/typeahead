@@ -1,0 +1,39 @@
+
+  <div class="main-container">
+
+    <form class="form-inline" style="height:100px;">
+
+      <div class="form-group field-form">
+
+        <input type="text" autocomplete="off" name="typeahead" 
+               class="form-control type-ahead-field" [value]=" store.getState().searchingText"
+               placeholder="Search..." (click)="showSuggestionsList()">
+        
+        <label [hidden]="store.getState().searching || store.getState().suggestionsCollapsed"
+               class="hint-text" >
+          {{store.getState().suggestedText}}
+        </label>
+      </div>
+
+      <button class="btn btn-outline-primary submit-typed-search" >
+      Submit
+      </button>
+
+    </form>
+  </div>
+  <div [hidden]="store.getState().suggestionsCollapsed" 
+       class="suggestions-container">
+
+    <ul [hidden]="!store.getState().searching" class="list-group" >
+      <li class="list-group-item">
+          <small>Searching...</small>
+      </li>
+
+    </ul>
+    <ul [hidden]="searching" class="list-group" >
+      <li class="list-group-item" (click)="setText(suggestion)"
+          *ngFor="let suggestion of (searchStream$ | async)" >
+          <small class="suggestion-text">{{ getSuggestedText(suggestion) }}</small>
+      </li>
+    </ul>
+  </div>
